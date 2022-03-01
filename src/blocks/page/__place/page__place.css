@@ -1,0 +1,13 @@
+.page__place {
+  margin-bottom: 20px;
+}
+
+.page__place:last-of-type {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .page__place { 
+    margin-bottom: 0;
+  }
+}
