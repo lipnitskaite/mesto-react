@@ -5,47 +5,22 @@ import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
 
 function App() {
-  function handleEditAvatarClick() {
-    const buttonEditAvatar = document.querySelector('.profile__photo-edit-button');
-    
-    function openPopup() {
-      const popupAvatar = document.querySelector('.popup_type_edit-avatar');
-      popupAvatar.classList.add('popup_opened');
-    }
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 
-    buttonEditAvatar.addEventListener('click', openPopup());
-  };
-
-  function handleEditProfileClick() {
-    const buttonEditProfile = document.querySelector('.profile__edit-button');
-    
-    function openPopup() {
-      const popupProfile = document.querySelector('.popup_type_edit-profile');
-      popupProfile.classList.add('popup_opened');
-    }
-
-    buttonEditProfile.addEventListener('click', openPopup());
-  };
-
-  function handleAddPlaceClick() {
-    const buttonAddPlace = document.querySelector('.profile__add-button');
-    
-    function openPopup() {
-      const popupNewPlace = document.querySelector('.popup_type_add-post');
-      popupNewPlace.classList.add('popup_opened');
-    }
-
-    buttonAddPlace.addEventListener('click', openPopup());
-  };
+  const handleEditAvatarClick = () => {setIsEditAvatarPopupOpen(true)};
+  const handleEditProfileClick = () => {setIsEditProfilePopupOpen(true)};
+  const handleAddPlaceClick = () => {setIsAddPlacePopupOpen(true)};
 
   return (
     <div className="page">
       <Header/>
 
       <Main 
-        handleEditAvatarClick={handleEditAvatarClick}
-        handleEditProfileClick={handleEditProfileClick}
-        handleAddPlaceClick={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
       />
 
       <Footer />
@@ -54,6 +29,7 @@ function App() {
         name="edit-profile"
         title="Редактировать профиль"
         buttonTitle="Сохранить"
+        isOpen={isEditProfilePopupOpen}
         children={[
           <fieldset className="form__container">
             <input id="name-input" className="form__input form__input_type_name" placeholder="Имя" type="text" name="name" value="" required minLength="2" maxLength="40" />
@@ -68,6 +44,7 @@ function App() {
         name="edit-avatar"
         title="Обновить аватар"
         buttonTitle="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
         children={[
           <fieldset className="form__container">
             <input id="avatar-input" className="form__input form__input_type_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" value="" required />
@@ -80,6 +57,7 @@ function App() {
         name="add-post"
         title="Новое место"
         buttonTitle="Создать"
+        isOpen={isAddPlacePopupOpen}
         children={[
           <fieldset className="form__container">
             <input id="title-input" className="form__input form__input_type_post-title" placeholder="Название" type="text" name="name" placeholder="Название" required minLength="2" maxLength="30" />
