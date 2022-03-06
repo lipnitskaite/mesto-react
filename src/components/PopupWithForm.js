@@ -4,9 +4,9 @@ function PopupWithForm(props) {
   return (
     <div className="page">
       <section className={props.isOpen ? `popup popup_type_${props.name} popup_opened` : `popup popup_type_${props.name}`}>
-        <div className="popup__overlay"></div>
+        <div className="popup__overlay" onClick={props.onClose}></div>
         <div className="popup__content">
-          <button className="popup__close" type="button"></button>
+          <button className="popup__close" type="button" onClick={props.onClose}></button>
           <form className={`form form_type_${props.name}`} name={`${props.name}`} noValidate>
             <h2 className={"form__title"}>{`${props.title}`}</h2>
             {props.children}

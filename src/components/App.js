@@ -13,6 +13,12 @@ function App() {
   const handleEditProfileClick = () => {setIsEditProfilePopupOpen(true)};
   const handleAddPlaceClick = () => {setIsAddPlacePopupOpen(true)};
 
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  };
+
   return (
     <div className="page">
       <Header/>
@@ -30,6 +36,7 @@ function App() {
         title="Редактировать профиль"
         buttonTitle="Сохранить"
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
         children={[
           <fieldset className="form__container">
             <input id="name-input" className="form__input form__input_type_name" placeholder="Имя" type="text" name="name" value="" required minLength="2" maxLength="40" />
@@ -45,6 +52,7 @@ function App() {
         title="Обновить аватар"
         buttonTitle="Сохранить"
         isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
         children={[
           <fieldset className="form__container">
             <input id="avatar-input" className="form__input form__input_type_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" value="" required />
@@ -58,6 +66,7 @@ function App() {
         title="Новое место"
         buttonTitle="Создать"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         children={[
           <fieldset className="form__container">
             <input id="title-input" className="form__input form__input_type_post-title" placeholder="Название" type="text" name="name" placeholder="Название" required minLength="2" maxLength="30" />
