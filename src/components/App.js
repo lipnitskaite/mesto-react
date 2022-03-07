@@ -82,20 +82,6 @@ function App() {
         title="Вы уверены?"
         buttonTitle="Да"
       />
-
-      <template className="template">
-        <article className="place page__place">
-          <img alt="" className="place__image" />
-          <div className="place__main">
-            <h2 className="place__title"></h2>
-            <div className="place__like-container">
-              <button className="place__like-button" type="button"></button>
-              <p className="place__like-number"></p>
-            </div> 
-            <button className="place__delete-button" type="button"></button>
-          </div>
-        </article>
-      </template>
   </div>
   );
 }
