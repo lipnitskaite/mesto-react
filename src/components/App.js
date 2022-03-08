@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
+import ImagePopup from '../components/ImagePopup';
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditAvatarClick = () => {setIsEditAvatarPopupOpen(true)};
   const handleEditProfileClick = () => {setIsEditProfilePopupOpen(true)};
   const handleAddPlaceClick = () => {setIsAddPlacePopupOpen(true)};
+  const handleCardClick = (card) => {setSelectedCard(card)};
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   };
 
   return (
@@ -27,6 +31,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
 
       <Footer />
@@ -76,11 +81,10 @@ function App() {
           </fieldset>
         ]}
       />
-
-      <PopupWithForm
-        name="delete-post"
-        title="Вы уверены?"
-        buttonTitle="Да"
+      
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
       />
   </div>
   );

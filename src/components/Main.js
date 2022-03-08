@@ -6,6 +6,7 @@ function Main({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
+  onCardClick,
 }) {
 
   const [userName, setUserName] = useState("");
@@ -35,7 +36,9 @@ function Main({
   const renderCards = () => {
     if (cards.length) {
       return cards.map((card) => (
-        <Card card={card} />
+        <Card 
+          card={card} 
+          onCardClick={onCardClick}/>
       ));
     }
   }
