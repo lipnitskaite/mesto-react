@@ -44,9 +44,9 @@ function App() {
         onClose={closeAllPopups}
         children={[
           <fieldset className="form__container">
-            <input id="name-input" className="form__input form__input_type_name" placeholder="Имя" type="text" name="name" value="" required minLength="2" maxLength="40" />
+            <input id="name-input" className="form__input form__input_type_name" placeholder="Имя" type="text" name="name" defaultValue="" required minLength="2" maxLength="40" />
             <span className="name-input-error form__input-error"></span>
-            <input id="job-input" className="form__input form__input_type_job" placeholder="Занятие" type="text" name="about" value="" required minLength="2" maxLength="200" />
+            <input id="job-input" className="form__input form__input_type_job" placeholder="Занятие" type="text" name="about" defaultValue="" required minLength="2" maxLength="200" />
             <span className="job-input-error form__input-error"></span>
           </fieldset>
         ]}
@@ -60,7 +60,7 @@ function App() {
         onClose={closeAllPopups}
         children={[
           <fieldset className="form__container">
-            <input id="avatar-input" className="form__input form__input_type_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" value="" required />
+            <input id="avatar-input" className="form__input form__input_type_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" defaultValue="" required />
             <span className="avatar-input-error form__input-error"></span>
           </fieldset>
         ]}

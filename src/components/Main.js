@@ -16,6 +16,12 @@ function Main({
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    api.getCards()
+    .then((res) => {
+      setCards(res);
+    })
+    .catch((err) => console.log(err));
+
     api.getUserInfoApi()
     .then((res) => {
       setUserName(res.name);
@@ -23,25 +29,7 @@ function Main({
       setUserAvatar(res.avatar);
     })
     .catch((err) => console.log(err));
-  });
-
-  useEffect(() => {
-    api.getCards()
-    .then((res) => {
-      setCards(res);
-    })
-    .catch((err) => console.log(err));
   }, []);
-
-  const renderCards = () => {
-    if (cards.length) {
-      return cards.map((card) => (
-        <Card 
-          card={card} 
-          onCardClick={onCardClick}/>
-      ));
-    }
-  }
 
     return (
       <main className="content">
@@ -59,7 +47,16 @@ function Main({
         </section>
 
         <section className="places page__places">
-          {renderCards()}
+          {function () {
+            if (cards.length) {
+              return cards.map((card) => (
+                <Card 
+                  card={card} 
+                  onCardClick={onCardClick}
+                  key={card._id}/>
+              ));
+            }
+          }}
         </section>
       </main>
     );
