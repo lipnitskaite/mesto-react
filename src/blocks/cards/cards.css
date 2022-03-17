@@ -1,4 +1,4 @@
-.places {
+.cards {
   width: calc(100% - (19px*2));
   margin: 0 auto;
   display: grid;
@@ -7,14 +7,14 @@
 }
 
 @media screen and (min-width: 600px) {
-  .places {
+  .cards {
     max-width: 80%;
     grid-gap: 20px 17px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .places {
+  .cards {
     max-width: 880px;
   }
 }
