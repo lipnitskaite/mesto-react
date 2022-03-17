@@ -10,22 +10,9 @@ function Main({
   onCardClick,
 }) {
 
-  // const [userName, setUserName] = useState("");
-  // const [userDescription, setUserDescription] = useState("");
-  // const [userAvatar, setUserAvatar] = useState("");
   const currentUser = React.useContext(CurrentUserContext);
   
   const [cards, setCards] = useState([]);
-
-  // useEffect(() => {
-  //   api.getUserInfoApi()
-  //   .then((res) => {
-  //     setUserName(res.name);
-  //     setUserDescription(res.about);
-  //     setUserAvatar(res.avatar);
-  //   })
-  //   .catch((err) => console.log(err));
-  // });
 
   useEffect(() => {
     api.getCards()
@@ -35,12 +22,23 @@ function Main({
     .catch((err) => console.log(err));
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+    .catch((err) => console.log(err));
+  }
+
   const renderCards = () => {
     if (cards.length) {
       return cards.map((card) => (
         <Card 
           card={card} 
-          onCardClick={onCardClick}/>
+          onCardClick={onCardClick}
+          onCardLike={handleCardLike}/>
       ));
     }
   }
