@@ -32,13 +32,25 @@ function Main({
     .catch((err) => console.log(err));
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(() => {
+      const removedCardIndex = cards.indexOf(card);
+
+      cards.filter(cards.splice(removedCardIndex, 1));
+    })
+    .catch((err) => console.log(err));
+  }
+
   const renderCards = () => {
     if (cards.length) {
       return cards.map((card) => (
-        <Card 
+        <Card
           card={card} 
           onCardClick={onCardClick}
-          onCardLike={handleCardLike}/>
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+        />
       ));
     }
   }

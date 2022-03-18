@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card({
   card,
   onCardClick,
   onCardLike,
+  onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -19,6 +20,7 @@ function Card({
   );
 
   const handleLikeClick = () => onCardLike(card);
+  const handleDeleteClick = () => onCardDelete(card);
 
   const handleCardClick = () => onCardClick(card);
     return (
@@ -30,7 +32,7 @@ function Card({
             <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}></button>
             <p className="card__like-number">{card.likes.length}</p>
           </div> 
-          <button className={cardDeleteButtonClassName} type="button"></button>
+          <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}></button>
         </div>
       </article>
     );
