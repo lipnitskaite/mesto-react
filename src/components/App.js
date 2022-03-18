@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
+import EditProfilePopup from '../components/EditProfilePopup';
 import ImagePopup from '../components/ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -12,11 +13,21 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({name: '', about: ''});
 
   const handleEditAvatarClick = () => {setIsEditAvatarPopupOpen(true)};
   const handleEditProfileClick = () => {setIsEditProfilePopupOpen(true)};
   const handleAddCardClick = () => {setIsAddCardPopupOpen(true)};
   const handleCardClick = (card) => {setSelectedCard(card)};
+
+  const handleUpdateUser = (res) => {
+    api.updateUserInfo(res)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => console.log(err));    
+  };
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
@@ -25,15 +36,13 @@ function App() {
     setSelectedCard(null);
   };
 
-  const [currentUser, setCurrentUser] = useState([]);
-
   useEffect(() => {
     api.getUserInfoApi()
     .then((res) => {
       setCurrentUser(res);
     })
     .catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -49,20 +58,10 @@ function App() {
 
         <Footer />
 
-        <PopupWithForm
-          name="edit-profile"
-          title="Редактировать профиль"
-          buttonTitle="Сохранить"
+        <EditProfilePopup 
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          children={[
-            <fieldset className="form__container">
-              <input id="name-input" className="form__input form__input_type_name" placeholder="Имя" type="text" name="name" value="" required minLength="2" maxLength="40" />
-              <span className="name-input-error form__input-error"></span>
-              <input id="job-input" className="form__input form__input_type_job" placeholder="Занятие" type="text" name="about" value="" required minLength="2" maxLength="200" />
-              <span className="job-input-error form__input-error"></span>
-            </fieldset>
-          ]}
+          onUpdateUser={handleUpdateUser}
         />
 
         <PopupWithForm

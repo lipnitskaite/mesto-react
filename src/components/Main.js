@@ -35,9 +35,7 @@ function Main({
   function handleCardDelete(card) {
     api.deleteCard(card._id)
     .then(() => {
-      const removedCardIndex = cards.indexOf(card);
-
-      cards.filter(cards.splice(removedCardIndex, 1));
+      setCards((state) => state.filter((c) => c._id !== card._id));
     })
     .catch((err) => console.log(err));
   }
