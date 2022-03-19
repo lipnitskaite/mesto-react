@@ -4,6 +4,7 @@ import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
 import EditProfilePopup from '../components/EditProfilePopup';
+import EditAvatarPopup from '../components/EditAvatarPopup';
 import ImagePopup from '../components/ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -13,7 +14,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState({name: '', about: ''});
+  const [currentUser, setCurrentUser] = useState('');
 
   const handleEditAvatarClick = () => {setIsEditAvatarPopupOpen(true)};
   const handleEditProfileClick = () => {setIsEditProfilePopupOpen(true)};
@@ -22,6 +23,15 @@ function App() {
 
   const handleUpdateUser = (res) => {
     api.updateUserInfo(res)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => console.log(err));    
+  };
+
+  const handleUpdateAvatar = ({avatar}) => {
+    api.updateUserAvatar(avatar)
     .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
@@ -64,18 +74,10 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <PopupWithForm
-          name="edit-avatar"
-          title="Обновить аватар"
-          buttonTitle="Сохранить"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          children={[
-            <fieldset className="form__container">
-              <input id="avatar-input" className="form__input form__input_type_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" value="" required />
-              <span className="avatar-input-error form__input-error"></span>
-            </fieldset>
-          ]}
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         <PopupWithForm
