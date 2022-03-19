@@ -1,16 +1,16 @@
 import React from 'react';
 
-function PopupWithForm(props) {
+function PopupWithForm({name, title, buttonTitle, isOpen, onClose, onSubmit, children}) {
   return (
     <div className="page">
-      <section className={props.isOpen ? `popup popup_type_${props.name} popup_opened` : `popup popup_type_${props.name}`}>
-        <div className="popup__overlay" onClick={props.onClose}></div>
+      <section className={isOpen ? `popup popup_type_${name} popup_opened` : `popup popup_type_${name}`}>
+        <div className="popup__overlay" onClick={onClose}></div>
         <div className="popup__content">
-          <button className="popup__close" type="button" onClick={props.onClose}></button>
-          <form className={`form form_type_${props.name}`} name={`${props.name}`} noValidate>
-            <h2 className={"form__title"}>{`${props.title}`}</h2>
-            {props.children}
-            <button className="form__button form__button_type_submit-changes" type="submit" name="submit" value={`${props.buttonTitle}`}>{`${props.buttonTitle}`}</button>
+          <button className="popup__close" type="button" onClick={onClose}></button>
+          <form className={`form form_type_${name}`} name={`${name}`} onSubmit={onSubmit} noValidate>
+            <h2 className={"form__title"}>{`${title}`}</h2>
+            {children}
+            <button className="form__button form__button_type_submit-changes" type="submit" name="submit" value={`${buttonTitle}`}>{`${buttonTitle}`}</button>
           </form>
         </div>
       </section>
