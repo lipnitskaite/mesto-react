@@ -13,17 +13,14 @@ function Main({
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const handleCardLike = () => onCardLike();
-  const handleCardDelete = () => onCardDelete();
-  
   const renderCards = () => {
     if (cards.length) {
       return cards.map((card) => (
         <Card
           card={card} 
           onCardClick={onCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardLike={onCardLike}
+          onCardDelete={onCardDelete}
         />
       ));
     }
