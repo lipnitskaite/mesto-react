@@ -2,7 +2,7 @@ import React from 'react';
 
 function PopupWithForm({name, title, buttonTitle, isOpen, onClose, onSubmit, children}) {
   return (
-    <section className={isOpen ? `popup popup_type_${name} popup_opened` : `popup popup_type_${name}`}>
+    <section className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__overlay" onClick={onClose}></div>
       <div className="popup__content">
         <button className="popup__close" type="button" onClick={onClose}></button>

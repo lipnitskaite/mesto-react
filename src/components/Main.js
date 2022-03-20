@@ -13,19 +13,6 @@ function Main({
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const renderCards = () => {
-    if (cards.length) {
-      return cards.map((card) => (
-        <Card
-          card={card} 
-          onCardClick={onCardClick}
-          onCardLike={onCardLike}
-          onCardDelete={onCardDelete}
-        />
-      ));
-    }
-  }
-
     return (
       <main className="content">
         <section className="profile">
@@ -42,7 +29,14 @@ function Main({
         </section>
 
         <section className="cards page__cards">
-          {renderCards()}
+          {cards.map((card) => (
+            <Card
+              card={card} 
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
+          )) }
         </section>
       </main>
     );

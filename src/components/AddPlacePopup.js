@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from '../components/PopupWithForm';
         
 function EditProfilePopup({isOpen, onClose, onAddPlace}) {
@@ -14,6 +14,11 @@ function EditProfilePopup({isOpen, onClose, onAddPlace}) {
     setCardPhotoLink(e.target.value);
   }
 
+  useEffect(() => {
+    setCardName('');
+    setCardPhotoLink('');
+  }, [isOpen]);
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -21,9 +26,6 @@ function EditProfilePopup({isOpen, onClose, onAddPlace}) {
       name: cardName,
       link: cardPhotoLink,
     });
-
-    setCardName('');
-    setCardPhotoLink('');
   }
 
   return (
